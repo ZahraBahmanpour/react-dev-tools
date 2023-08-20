@@ -11,15 +11,20 @@ function List({ numOfItems }) {
   return <ul>{items}</ul>;
 }
 
-function App() {
+function Input() {
   const [value, setValue] = useState("");
   return (
+    <input
+      type="text"
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+    />
+  );
+}
+function App() {
+  return (
     <>
-      <input
-        type="text"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      />
+      <Input />
       <List numOfItems={200} />
     </>
   );
