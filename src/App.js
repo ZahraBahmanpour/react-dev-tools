@@ -1,14 +1,14 @@
-import { useState, memo, useMemo } from "react";
+import { useState, memo, useMemo, useCallback } from "react";
 
 function ListItem({ text }) {
   return <li>{text}</li>;
 }
-const List = memo(({ listConfig }) => {
+const List = memo(({ listConfig, onNumberChange }) => {
   const items = [];
   for (let i = 0; i <= listConfig.numOfItems; i++) {
     items.push(<ListItem text={i} />);
   }
-  return <ul>{items}</ul>;
+  return <ul onClick={onNumberChange}>{items}</ul>;
 });
 
 function App() {
@@ -22,6 +22,8 @@ function App() {
     };
   }, [name]);
 
+  const callback = useCallback(() => alert(name), [name]);
+
   return (
     <>
       <input
@@ -34,7 +36,7 @@ function App() {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <List listConfig={listConfig} />
+      <List listConfig={listConfig} onNumberChange={callback} />
     </>
   );
 }
