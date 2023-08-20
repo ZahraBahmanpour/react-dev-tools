@@ -1,11 +1,11 @@
-import { useState, memo } from "react";
+import { useState, memo, useMemo } from "react";
 
 function ListItem({ text }) {
   return <li>{text}</li>;
 }
-const List = memo(({ numOfItems }) => {
+const List = memo(({ listConfig }) => {
   const items = [];
-  for (let i = 0; i <= numOfItems; i++) {
+  for (let i = 0; i <= listConfig.numOfItems; i++) {
     items.push(<ListItem text={i} />);
   }
   return <ul>{items}</ul>;
@@ -13,6 +13,13 @@ const List = memo(({ numOfItems }) => {
 
 function App() {
   const [value, setValue] = useState("");
+
+  const listConfig = useMemo(() => {
+    return {
+      numOfItems: 200,
+    };
+  }, []);
+
   return (
     <>
       <input
@@ -20,7 +27,7 @@ function App() {
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
-      <List numOfItems={200} />
+      <List listConfig={listConfig} />
     </>
   );
 }
