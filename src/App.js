@@ -13,12 +13,14 @@ const List = memo(({ listConfig }) => {
 
 function App() {
   const [value, setValue] = useState("");
+  const [name, setName] = useState("");
 
   const listConfig = useMemo(() => {
     return {
       numOfItems: 200,
+      name,
     };
-  }, []);
+  }, [name]);
 
   return (
     <>
@@ -26,6 +28,11 @@ function App() {
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
+      />
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       />
       <List listConfig={listConfig} />
     </>
