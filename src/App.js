@@ -1,30 +1,25 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 
 function ListItem({ text }) {
   return <li>{text}</li>;
 }
-function List({ numOfItems }) {
+const List = memo(({ numOfItems }) => {
   const items = [];
   for (let i = 0; i <= numOfItems; i++) {
     items.push(<ListItem text={i} />);
   }
   return <ul>{items}</ul>;
-}
+});
 
-function Input() {
+function App() {
   const [value, setValue] = useState("");
   return (
-    <input
-      type="text"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    />
-  );
-}
-function App() {
-  return (
     <>
-      <Input />
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
       <List numOfItems={200} />
     </>
   );
